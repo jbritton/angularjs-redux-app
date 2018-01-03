@@ -1,6 +1,9 @@
+
 const AppHtml = `
 	<div>
-		<h1>App</h1>
+		<navbar></navbar>
+		<div ui-view></div>
+		<footer>Footer</footer>
 	</div>
 `;
 
@@ -9,7 +12,7 @@ class AppController {
 		return ['$log'];
 	}
 
-	constructor($log, AppService){
+	constructor($log){
 		this.log = $log;
 	}
 
@@ -26,3 +29,4 @@ const AppComponent = {
 };
 
 export default AppComponent;
+

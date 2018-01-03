@@ -1,17 +1,25 @@
 import angular from 'angular';
-import uiRouter     from 'angular-ui-router';
+import uiRouter     from '@uirouter/angularjs';
 import ngRedux      from 'ng-redux';
+import ngReduxUiRouter from 'redux-ui-router';
+import UserActions from './actions/user.actions';
 import AppComponent from './components/app.component';
 import HomeComponent from './components/home.component';
-import configureRouter from './routes/router.config';
+import LoginComponent from './components/login.component';
+import configureRouter from './router/router.config';
+import routerHook from './router/router.hook';
 import configureStore from './store/store.config';
+import NavBarComponent from './components/navbar.component';
 
-const app = angular.module('app', [ uiRouter, ngRedux ])
-	.config(configureRouter)
+const app = angular.module('app', [ uiRouter, ngRedux, ngReduxUiRouter ])
 	.config(configureStore)
+	.config(configureRouter)
+	.run(routerHook)
+	.service('UserActions', UserActions)
 	.component('app', AppComponent)
-	.component('home', HomeComponent);
-
+	.component('login', LoginComponent)
+	.component('home', HomeComponent)
+	.component('navbar', NavBarComponent);
 
 export default app;
 

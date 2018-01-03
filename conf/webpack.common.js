@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const extractSass = new ExtractTextPlugin({
+const extractCss = new ExtractTextPlugin({
 	filename: '[name].[contenthash].css'
 });
 
@@ -49,25 +49,85 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.scss$/,
-				use: extractSass.extract({
+				test: /\.css/,
+				use: extractCss.extract({
 					use: [
 						{
-							loader: 'css-loader',
-							options: {
-								sourceMap: true
-							}
-						},
-						{
-							loader: 'sass-loader',
-							options: {
-								sourceMap: true
-							}
+							loader: 'css-loader'
 						}
 					],
 					// use style-loader in development
 					fallback: 'style-loader'
 				})
+			},
+			{
+				test: /\.scss$/,
+				use: extractCss.extract({
+					use: [
+						{
+							loader: 'css-loader'
+						},
+						{
+							loader: 'sass-loader'
+						}
+					],
+					// use style-loader in development
+					fallback: 'style-loader'
+				})
+			},
+			{
+				test: /\.(png|jpg|gif)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 8192
+						}
+					}
+				]
+			},
+
+			{
+				test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+				use: [
+					'file-loader'
+				]
+			},
+			{
+				test: /\.(woff|woff2)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 5000,
+							prefix: 'font'
+						}
+					}
+				]
+			},
+			{
+				test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 10000,
+							mimetype: 'application/octet-stream'
+						}
+					}
+				]
+			},
+			{
+				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 10000,
+							mimetype: 'image/svg+xml'
+						}
+					}
+				]
 			}
 		]
 	},
@@ -79,6 +139,6 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: 'index.html'
 		}),
-		extractSass
+		extractCss
 	]
 };
