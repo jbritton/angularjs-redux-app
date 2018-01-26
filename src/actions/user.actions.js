@@ -1,19 +1,19 @@
-import { USER } from '../constants/user';
-import { ROUTES } from '../constants/routes';
+import { LOGIN, LOGIN_ERROR } from './action-type.constants';
+import { HOME_ROUTE } from '../router/routes';
 import { stateGo, stateReload, stateTransitionTo } from 'redux-ui-router';
 
 function UserActions($http){
 
 	function loginSuccess(user){
 		return {
-			type: USER.LOGIN,
+			type: LOGIN,
 			payload: user
 		};
 	}
 
 	function loginError(error){
 		return {
-			type: USER.LOGIN_ERROR,
+			type: LOGIN_ERROR,
 			payload: error
 		};
 	}
@@ -29,7 +29,7 @@ function UserActions($http){
 					// update user model
 					dispatch(loginSuccess(data));
 					// route to home page
-					dispatch(stateGo(ROUTES.HOME));
+					dispatch(stateGo(HOME_ROUTE));
 				})
 				.catch(error => dispatch(loginError(error)));
 		};

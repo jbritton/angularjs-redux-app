@@ -1,10 +1,12 @@
+import { HOME_ROUTE, BLOG_ROUTE } from '../router/routes';
 
-const NavBarHtml = `
+
+const NavBarTemplate = `
 	<nav class="navbar navbar-default navbar-static-top">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
-				<li><a href="#" ui-sref="app.home">Home</a></li>
-				<li><a href="#" ui-sref="app.blog">Blog</a></li>
+				<li><a href="#" ui-sref="${HOME_ROUTE}">Home</a></li>
+				<li><a href="#" ui-sref="${BLOG_ROUTE}">Blog</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -19,7 +21,7 @@ class NavBarController {
 		this.log = $log;
 		const mapState = state => state;
 		const disconnect = $ngRedux.connect(mapState)(this);
-		this.$onDestroy = disconnect;
+		this.$onDestroy = () => disconnect();
 	}
 
 	$onInit(){ }
@@ -30,7 +32,7 @@ const NavBarComponent = {
 	bindings: {},
 	controller: NavBarController,
 	controllerAs: 'vm',
-	template: NavBarHtml
+	template: NavBarTemplate
 };
 
 export default NavBarComponent;

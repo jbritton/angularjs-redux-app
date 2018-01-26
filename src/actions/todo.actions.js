@@ -1,15 +1,15 @@
-import { TODOS } from '../constants/todos';
+import { ADD_TODO, REMOVE_TODO } from './action-type.constants';
 
 function addTodo(todo){
 	return {
-		type: TODOS.ADD_TODO,
+		type: ADD_TODO,
 		payload: todo
 	};
 }
 
 function removeTodo(index){
 	return {
-		type: TODOS.REMOVE_TODO,
+		type: REMOVE_TODO,
 		payload: index
 	};
 }

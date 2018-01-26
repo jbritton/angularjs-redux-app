@@ -1,17 +1,19 @@
-import appRoute from './app.route';
-import homeRoute from './home.route';
-import blogRoute from './blog.route';
-import loginRoute from './login.route';
+import routes, { DEFAULT_URL } from './routes';
 
+/**
+ * Configures the application router
+ * @param $stateProvider
+ * @param $urlRouterProvider
+ */
 const configureRouter = ($stateProvider, $urlRouterProvider) => {
-	$stateProvider
-		.state(appRoute)
-		.state(loginRoute)
-		.state(homeRoute)
-		.state(blogRoute);
+	// register application routes
+	routes.forEach((route) => {
+		console.log(`register route: ${route.name} => ${route.url}`);
+		$stateProvider.state(route);
+	});
 
-
-	$urlRouterProvider.otherwise('/home');
+	// register a default url
+	$urlRouterProvider.otherwise(DEFAULT_URL);
 };
 
 configureRouter.$inject = [

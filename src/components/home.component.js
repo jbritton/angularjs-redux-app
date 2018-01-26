@@ -1,6 +1,6 @@
 import TodoActions from '../actions/todo.actions';
 
-const HomeHtml = `
+const HomeTemplate = `
 	<div class="container">
 	    <div class="row">
 	        <div class="col-md-6">
@@ -32,8 +32,11 @@ class HomeController {
 	}
 
 	constructor($ngRedux) {
+		console.log('$ngRedux', $ngRedux);
 		this.todo = '';
-		this.unsubscribe = $ngRedux.connect(this.mapStateToThis, TodoActions)(this);
+
+		// connect redux, get reference to the disconnect function
+		this.disconnectRedux = $ngRedux.connect(this.mapStateToThis, TodoActions)(this);
 	}
 
 	submitTodo(){
@@ -42,7 +45,7 @@ class HomeController {
 	}
 
 	$onDestroy(){
-		this.unsubscribe();
+		this.disconnectRedux();
 	}
 
 	mapStateToThis(state) {
@@ -58,7 +61,7 @@ const HomeComponent = {
 	bindings: {},
 	controller: HomeController,
 	controllerAs: 'vm',
-	template: HomeHtml
+	template: HomeTemplate
 };
 
 export default HomeComponent;

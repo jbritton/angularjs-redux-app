@@ -11,6 +11,7 @@ import routerHook from './router/router.hook';
 import configureStore from './store/store.config';
 import NavBarComponent from './components/navbar.component';
 
+// configure application module - declare module dependencies, register components
 const app = angular.module('app', [ uiRouter, ngRedux, ngReduxUiRouter ])
 	.config(configureStore)
 	.config(configureRouter)

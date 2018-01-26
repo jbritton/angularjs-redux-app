@@ -1,6 +1,5 @@
 
-
-const LoginHtml = `
+const LoginTemplate = `
 	<div class="container">
 		<div class="row">
 			<form class="col-md-6">
@@ -33,10 +32,15 @@ class LoginController {
 	}
 
 	constructor($log, $ngRedux, UserActions){
+		// services
 		this.log = $log;
+
+		// model
 		this.username = null;
 		this.password = null;
-		this.unsubscribe = $ngRedux.connect(this.mapStateToThis, UserActions)(this);
+
+		// connect to redux store
+		this.disconnectRedux = $ngRedux.connect(this.mapStateToThis, UserActions)(this);
 	}
 
 	mapStateToThis(state){
@@ -46,11 +50,13 @@ class LoginController {
 	}
 
 	onLogin(){
+		// call login action (registered via redux connect)
 		this.login(this.username, this.password);
 	}
 
 	$onDestroy(){
-		this.unsubscribe();
+		// disconnect from redux store
+		this.disconnectRedux();
 	}
 }
 
@@ -59,7 +65,7 @@ const LoginComponent = {
 	bindings: {},
 	controller: LoginController,
 	controllerAs: 'vm',
-	template: LoginHtml
+	template: LoginTemplate
 };
 
 export default LoginComponent;

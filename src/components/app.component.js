@@ -1,9 +1,9 @@
 
-const AppHtml = `
+const AppTemplate = `
 	<div>
 		<navbar></navbar>
 		<div ui-view></div>
-		<footer>Footer</footer>
+		<footer></footer>
 	</div>
 `;
 
@@ -25,7 +25,7 @@ const AppComponent = {
 	bindings: {},
 	controller: AppController,
 	controllerAs: 'vm',
-	template: AppHtml
+	template: AppTemplate
 };
 
 export default AppComponent;

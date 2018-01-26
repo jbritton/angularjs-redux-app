@@ -1,10 +1,11 @@
 import angular from 'angular';
+import { LOGIN_ROUTE } from '../router/routes';
 
 const routerHook = ($transitions, $ngRedux) => {
 	$transitions.onStart({ to: 'app.**' }, (transition) => {
-		let state = $ngRedux.getState();
-		if(!angular.isObject(state.user) || !state.user.authenticated){
-			return transition.router.stateService.target('login');
+		const { user } = $ngRedux.getState();
+		if(!angular.isObject(user) || !user.authenticated){
+			return transition.router.stateService.target(LOGIN_ROUTE);
 		}
 	});
 };

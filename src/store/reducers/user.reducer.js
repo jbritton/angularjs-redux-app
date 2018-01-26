@@ -1,4 +1,4 @@
-import { USER } from '../../constants/user';
+import { LOGIN, LOGOUT, REGISTER } from '../../actions/action-type.constants';
 
 const initialState = {
 	authenticated: false,
@@ -7,11 +7,11 @@ const initialState = {
 
 export function UserReducer(state = initialState, action) {
 	switch (action.type){
-		case USER.LOGIN:
+		case LOGIN:
 			return { authenticated: true, username: action.payload.username };
-		case USER.LOGOUT:
+		case LOGOUT:
 			return { authenticated: false, username: null };
-		case USER.REGISTER:
+		case REGISTER:
 			return { authenticated: true, username: action.payload.username };
 		default:
 			return state;
